@@ -63,10 +63,10 @@ public class CustomDialog extends DialogFragment {
             textView.setText(getText(R.string.update));
             //this callback triggers the removal of the transaction from the adapter arraylist
             dialogInterfaceEvent.editIconIsPressed(getDate(),getDescription(),getAmount());
-        }
+        }else{
         //get the current date
         Calendar calendar=Calendar.getInstance();
-        date.setText(calendar.get(Calendar.DATE)+"");
+        date.setText(calendar.get(Calendar.DATE)+"");}
         //set the negative button
         dialog.setNegativeButton(getString(R.string.cancel),(cancelDialog,direction)->{
             //if transaction is being edited cancel button should add old copy f transaction

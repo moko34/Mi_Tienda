@@ -68,12 +68,11 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
             generateTotalTransaction(transactionFragment.getAdapter().getTransactionArrayList());
         }else if(customDialog.getButtonText()==getString(R.string.save)){
             //Edit transaction in the item manager
-            itemManager.editTransaction(transaction,date,description,amount,key, category.getName());
+            itemManager.editTransaction(transactionToEdit,date,description,amount,key, category.getName());
             //Add new copy of the transaction to the arraylist
             transactionFragment.getAdapter().addTransactionToArrayListOnEdit(transaction);
             //update the total value
             generateTotalTransaction(transactionFragment.getAdapter().getTransactionArrayList());
-            Toast.makeText(this, "ssjsjsjjs", Toast.LENGTH_SHORT).show();
         }
 
     }

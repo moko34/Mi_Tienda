@@ -3,6 +3,7 @@ package com.example.mitiendapro.controller;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.example.mitiendapro.category.Category;
 import com.example.mitiendapro.transaction.Transaction;
@@ -67,6 +68,7 @@ public class ItemManager {
         }else{
             editedTransaction=new Transaction(date,description,amount,month,transaction.getYear());
         }
+        //remove old copy
         deleteTransaction(transaction,transactionType);
         saveTransaction(editedTransaction,transactionType);
     }
@@ -94,7 +96,7 @@ public class ItemManager {
             transactionDeleteKey= transaction.getDate() + "\n" + "trxtnSls" + "\n" +  transaction.getMonth() + "\n" + transaction.getYear() +  "\n" + transaction.getAmount();
         }
         editor.remove(transactionDeleteKey);
-        editor.apply();
+        editor.commit();
     }
     public ArrayList<Transaction> retrieveTransactions(Category category,boolean isPurchase){
         ArrayList<Transaction> myTransactions=new ArrayList<>();

@@ -134,6 +134,7 @@ public class TransactionFragment  extends Fragment implements TransactionAdapter
                             setAction(getString(R.string.undo),(view)->{
                                 itemManager.saveTransaction(deletedTransaction,misPurchase);
                                 mTransactions.add(itemPosition,deletedTransaction);
+                                editing.generateTotalTransaction(mTransactions);
                                 adapter.notifyItemInserted(itemPosition);
                             }).show();
             }

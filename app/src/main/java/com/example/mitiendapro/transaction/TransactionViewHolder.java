@@ -16,7 +16,7 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder {
     private ConstraintLayout constraintLayout;
     public TransactionViewHolder(@NonNull View itemView) {
         super(itemView);
-        
+
         constraintLayout=itemView.findViewById(R.id.transaction_constraint);
         amount=itemView.findViewById(R.id.txt_transaction_amount);
         date=itemView.findViewById(R.id.txt_transaction_date);
