@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_title_height"
+        android:fontFamily="@font/alice"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/add_transaction_here"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:textSize="16sp"
+        android:paddingStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/purple_500"
+        />
+
+    <EditText
+        android:id="@+id/edtDate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_title_height"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/dialog_date"
+        android:inputType="date"
+        android:digits="0123456789"
+        android:maxLength="2"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:singleLine="true"
+        android:textColorHint="#757575"
+        />
+
+    <EditText
+        android:id="@+id/dialog_description"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_item_height"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/dialog_description"
+
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="#757575" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/amount"
+        android:textSize="16sp"
+        android:paddingStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/purple_500"
+        />
+
+    <EditText
+        android:id="@+id/dialog_amount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_item_height"
+        android:autofillHints=""
+        android:ems="10"
+        android:digits="0123456789"
+        android:hint="@string/dialog_amount"
+        android:inputType="number"
+        android:paddingStart="10dp"
+        android:paddingBottom="10dp"
+        android:singleLine="true"
+        android:textColorHint="#757575" />
+</LinearLayout>

@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Mi Tienda</string>
+    <string name="action_settings">Settings</string>
+    <string name="edt_message">Enter a month name here </string>
+    <string name="add_category">Add Category</string>
+    <string name="add"><b>ADD</b></string>
+    <string name="cancel">"Cancel"</string>
+    <string name="failed">Saving Failed Try Again</string>
+    <string name="images_unsaved">Images not saved</string>
+    <string name="fill_all">PLEASE FILL ALL FIELDS</string>
+    <string name="file_not_found">File not found</string>
+    <string name="saving_please">Saving Image !! Please Wait</string>
+    <string name="please_add_image">Please add an image</string>
+    <string name="date">Date</string>
+    <string name="delete_transaction">Delete Transaction</string>
+    <string name="effecting_changes">Please Wait! Effecting Changes </string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="change_quantity">Please enter new quantity value</string>
+    <string name="changes_saved">Changes saved</string>
+    <string name="set_values">Please set fill all fields</string>
+    <string name="replace">Replace Image</string>
+    <string name="show_image">Show Image</string>
+    <string name="stock_quantity">Enter Item Quantity here</string>
+    <string name="stock_narration">Enter Item Name here</string>
+    <string name="image_deleted">StockItem Removed </string>
+    <string name="image_updated">StockItem Updated</string>
+    <string name="image_saved">Image Added Successfully</string>
+    <string name="available_stock">Available Stock</string>
+    <string name="minus">Subtract Stock</string>
+    <string name="stockItem_deleted">Item Deleted</string>
+    <string name="transaction_deleted">Transaction Deleted!!</string>
+    <string name="add_stock_now">Add Stock</string>
+    <string name="transaction_total">Total</string>
+    <string name="currency">GHS</string>
+    <string name="store">Store</string>
+    <string name="purchases">Expenses</string>
+    <string name="sales">Sales</string>
+    <string name="back">Tap again to exit</string>
+    <string name="total_values">"%s \n %s : %d"</string>
+    <string name="save">Save</string>
+    <string name="valid">Please enter valid inputs</string>
+    <string name="dialog_update">"Update"</string>
+    <string name="update">Update Transaction</string>
+    <string name="amount">Amount</string>
+    <string name="edit">Edit</string>
+    <string name="delete_category">Category Deleted!!</string>
+    <string name="undo">UNDO</string>
+    <string name="fill">Please Fill All Fields </string>
+    <string name="add_transaction_here">Add a transaction </string>
+    <string name="dialog_amount">Enter an Amount here</string>
+    <string name="dialog_date">Enter a date here...</string>
+    <string name="dialog_description">Enter transaction description...</string>
+    <string name="add_transaction">Add Transaction</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="fab_content">Add Item</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

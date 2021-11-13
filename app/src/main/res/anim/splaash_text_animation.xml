@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<translate
+    android:interpolator="@anim/bounce_interpolator"
+    android:toYDelta="80"
+    android:fromYDelta="-20"
+    android:fromXDelta="-50"
+    android:duration="700"/>
+    <alpha
+        android:interpolator="@anim/overshoot_interpolator"
+        android:fromAlpha="0.3"
+        android:toAlpha="1.5"
+        android:duration="500"/>
+    <scale
+        android:interpolator="@anim/splash_cycle"
+        android:fromXScale="0.0"
+        android:toXScale="1.5"
+        android:fromYScale="0.2"
+        android:toYScale="1.5"
+        android:duration="800"/>
+</set>

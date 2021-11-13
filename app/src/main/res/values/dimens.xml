@@ -1,0 +1,9 @@
+<resources>
+        <dimen name="fab_margin">16dp</dimen>
+        <dimen name="category_height">150dp</dimen>
+        <dimen name="transaction_height">150dp</dimen>
+        <dimen name="dialog_item_height">60dp</dimen>
+        <dimen name="dialog_title_height">48dp</dimen>
+        <dimen name="stock_item_height">200dp</dimen>
+
+</resources>

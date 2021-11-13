@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/stock_dialog_photo"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/edt_stock_quantity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/add_photo" />
+
+    <EditText
+        android:id="@+id/edt_stock_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:digits="0123456789"
+        android:ems="10"
+        android:hint="@string/stock_quantity"
+        android:inputType="text|phone"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/edt_dialog_narration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stock_dialog_photo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_dialog_narration"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/stock_narration"
+        android:inputType="textPersonName"
+        android:maxLength="100"
+        app:layout_constraintBottom_toBottomOf="@id/stock_dialog_photo"
+        app:layout_constraintStart_toEndOf="@+id/stock_dialog_photo"
+        app:layout_constraintTop_toBottomOf="@+id/edt_stock_quantity" />
+</androidx.constraintlayout.widget.ConstraintLayout>
