@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class Transaction  implements Serializable {
     private int date;
     private String description;
-    private int amount;
+    private float amount;
     private String month;
     private  int year;
 
 
-    public Transaction(int date, String description, int amount, String month,int year) {
+    public Transaction(int date, String description, float amount, String month,int year) {
         this.date = date;
         this.description = description;
         this.amount = amount;
@@ -34,7 +34,7 @@ public class Transaction  implements Serializable {
         this.description = description;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 

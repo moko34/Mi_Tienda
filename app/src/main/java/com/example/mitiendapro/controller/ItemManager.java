@@ -50,7 +50,7 @@ public class ItemManager {
     }
 
 
-    public void editTransaction(Transaction  transaction, int date,String description,int amount,boolean isPurchase,String month){
+    public void editTransaction(Transaction  transaction, int date,String description,float amount,boolean isPurchase,String month){
         Transaction editedTransaction;
         boolean transactionType;
         String key;
@@ -105,7 +105,7 @@ public class ItemManager {
         for(Map.Entry<String,?> transaction:transactions.entrySet()){
             String[] strings=transaction.getKey().split("\n");
             if(transaction.getKey().contains(keyType + "\n" + category.getName() + "\n" + category.getYear() )){
-                myTransactions.add(new Transaction(Integer.parseInt(strings[0]), (String) transaction.getValue(),Integer.parseInt(strings[4]),strings[2],Integer.parseInt(strings[3])));
+                myTransactions.add(new Transaction(Integer.parseInt(strings[0]), (String) transaction.getValue(),Float.parseFloat(strings[4]),strings[2],Integer.parseInt(strings[3])));
             }
         }
         return myTransactions;

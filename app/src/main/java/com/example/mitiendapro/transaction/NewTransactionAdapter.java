@@ -40,7 +40,7 @@ public class NewTransactionAdapter extends RecyclerView.Adapter<TransactionViewH
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         holder.getConstraintLayout().setAnimation(AnimationUtils.loadAnimation(context,R.anim.stock_translate));
-        holder.getAmount().setText(String.format("GHS %d",transactionArrayList.get(position).getAmount()));
+        holder.getAmount().setText(String.format("GHS %.2f",transactionArrayList.get(position).getAmount()));
         holder.getDate().setText(String.format("%d \n %s",transactionArrayList.get(position).getDate(),transactionArrayList.get(position).getMonth().substring(0,3)));
         holder.getDescription().setText(transactionArrayList.get(position).getDescription());
         holder.getImageButton().setOnClickListener(view ->

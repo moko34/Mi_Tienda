@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 public class CustomDialog extends DialogFragment {
    public interface DialogInterfaceEvent{
-        void onPositiveButtonClicked(int date,int amount,String description);
+        void onPositiveButtonClicked(int date,float amount,String description);
         void editIconIsPressed(EditText date, EditText description, EditText amount);
         void onNegativeButtonClicked();
     }
@@ -81,7 +81,7 @@ public class CustomDialog extends DialogFragment {
         //set the positive button action
         dialog.setPositiveButton(buttonText, (dialog1, which) -> {
             //Extract the entered amount
-            int transactionAmount=Integer.parseInt(amount.getText().toString());
+            float transactionAmount=Float.parseFloat(amount.getText().toString());
             //Extract the entered date
             int   transactionDate =Integer.parseInt(date.getText().toString());
             //Extract the specified description

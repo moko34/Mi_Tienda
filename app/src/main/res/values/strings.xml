@@ -36,7 +36,7 @@
     <string name="purchases">Expenses</string>
     <string name="sales">Sales</string>
     <string name="back">Tap again to exit</string>
-    <string name="total_values">"%s \n %s : %d"</string>
+    <string name="total_values">"%s \n %s : %.2f"</string>
     <string name="save">Save</string>
     <string name="valid">Please enter valid inputs</string>
     <string name="dialog_update">"Update"</string>

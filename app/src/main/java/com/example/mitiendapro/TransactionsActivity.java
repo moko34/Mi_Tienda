@@ -26,7 +26,7 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
     private FloatingActionButton fab;
     private CustomDialog customDialog;
     private ItemManager itemManager;
-    private int totalValue;
+    private float totalValue;
     private Transaction transactionToEdit;
     private TransactionAdapter transactionAdapter;
     private Category category;
@@ -56,7 +56,7 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
 
     }
     @Override
-    public void onPositiveButtonClicked(int date, int amount, String description) {
+    public void onPositiveButtonClicked(int date, float amount, String description) {
         boolean key=type.getText().toString()==getString(R.string.purchases)?true:false;
         Transaction transaction=new Transaction(date,description,amount,category.getName(),category.getYear());
         if(customDialog.getButtonText()==getString(R.string.add)){
@@ -129,7 +129,7 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
         customDialog=new CustomDialog(R.layout.dcustom_dialog_view,this,this,operationType);
         customDialog.show(getSupportFragmentManager(),TRANSACTION_KEY);
     }
-    public int getTotalTransactions(ArrayList<Transaction> arrayList,int value){
+    public float getTotalTransactions(ArrayList<Transaction> arrayList,float value){
         value=0;
         //compute the total from the arraylist on initial run
         for(int index =0;index<arrayList.size();index++){
