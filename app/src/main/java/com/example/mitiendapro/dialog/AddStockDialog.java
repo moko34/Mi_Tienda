@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.mitiendapro.MainActivity;
 import com.example.mitiendapro.R;
 import com.example.mitiendapro.controller.StockManager;
 import com.example.mitiendapro.stocks.StockItem;
@@ -136,7 +137,6 @@ public class AddStockDialog extends DialogFragment {
         imageView = unLoadedImage == null ? loadedImage : unLoadedImage;
 
         if(imageIsNotLoaded==true){
-            showToast("false");
             unLoadedImage.setOnClickListener((view) -> {
                 //extract description
                 String narrationValue = stockNarration.getText().toString();
@@ -144,7 +144,8 @@ public class AddStockDialog extends DialogFragment {
                 int quantityValue = stockQuantity.getText().toString() == "" ? 0 : Integer.parseInt(stockQuantity.getText().toString());
                 stockItem = new StockItem(null, narrationValue, quantityValue, 0, "");
                 if (narrationValue.equals("") || String.valueOf(quantityValue).equals("0")) {
-                    Toast.makeText(context, getString(R.string.set_values), Toast.LENGTH_LONG).show();
+                    showToast(getString(R.string.set_values));
+
                     return;
                 }else if(narrationValue.equals("ytzr8r")){
                     //if chosen name contains key  return
@@ -176,7 +177,7 @@ public class AddStockDialog extends DialogFragment {
                     if (saveImage) {
                         try {
                             //saving image permanently
-
+                            MainActivity.showProgress(getString(R.string.adding_item));
                             StockItem newStock = stockManager.saveStockItemToMediaStore(imageUri, stockItem);
                             //set the uri
                             stockItem.setUri(newStock.getUri());
@@ -185,6 +186,7 @@ public class AddStockDialog extends DialogFragment {
                             savedImageUri = newStock.getUri();
                             stockItem.setId(newStock.getId());
                             unLoadedImage.setClickable(false);
+                            MainActivity.dismissProgress();
                         } catch (IOException exception) {
                             exception.printStackTrace();
                             showToast(getString(R.string.images_unsaved));

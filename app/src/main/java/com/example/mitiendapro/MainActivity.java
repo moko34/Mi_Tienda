@@ -3,6 +3,8 @@ package com.example.mitiendapro;
 import android.Manifest;
 import android.content.Intent;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +32,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
 
+import androidx.appcompat.view.menu.MenuItemWrapperICS;
+import androidx.appcompat.view.menu.MenuWrapperICS;
 import androidx.core.app.ActivityCompat;
 
 
@@ -40,6 +44,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +65,10 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
     private ItemManager itemManager;
     private ArrayList<StockItem> arrayList=new ArrayList<>();
     private int newValue;
+    private static ProgressBar progressBar;
+    private static LinearLayout progress_layout;
+    private static TextView progress_text,error_txt;
+    private MenuItem menuItem;
     private ImageView myImageView;
     public static final String KEY="key";
     public static final String STOCK_KEY="stock_key";
@@ -82,6 +93,11 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
         reQuestExternalStoragePermission();
         storeIsActive=false;
         run=false;
+        error_txt=findViewById(R.id.error_text);
+        progressBar=findViewById(R.id.progress_bar);
+        progress_layout=findViewById(R.id.progress_circular);
+        progress_text=findViewById(R.id.progress_text);
+        changeProgressBarColor(progressBar);
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,fragment).commit();
         binding.fab.setOnClickListener(this);
 
@@ -91,6 +107,33 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menuItem= menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+             return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(fragment==null) {
+                    ArrayList<StockItem> stockItems = searchStockItem(arrayList, newText);
+                    if (stockItems.size() == 0) {
+                        toggleLayoutVisibility(View.VISIBLE, error_txt);
+                        stockItems=new ArrayList<>();
+                        StockFragment stockFragment = StockFragment.newInstance(MainActivity.this, stockItems);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,stockFragment).commit();
+                    } else {
+                        toggleLayoutVisibility(View.GONE, error_txt);
+                        StockFragment stockFragment = StockFragment.newInstance(MainActivity.this, stockItems);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, stockFragment).commit();
+
+                    }}
+                    return true;
+                }});
+
         return true;
     }
 
@@ -99,12 +142,21 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
         if(item.getItemId()==R.id.store_menu){
             if(!storeIsActive){
             fragment=null;
+            showProgress(getString(R.string.please));
             stockFragment = StockFragment.newInstance(this,arrayList);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,stockFragment).addToBackStack(STOCK_KEY).commit();
+                showProgress(getString(R.string.loading_items));
             setTitle("Store");
+            dismissProgress();
+            menuItem.setVisible(true);
             storeIsActive=true;}
 
+        }if(item.getItemId()==R.id.app_bar_search){
+            if(fragment!=null){
+            }
         }
+
 
         return super.onOptionsItemSelected(item);
 
@@ -199,8 +251,10 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
         StockItem newStockItem=stockItem;
 
         stockItem.setQuantity(stockItem.getQuantity()+1);
+        showProgress(getString(R.string.saving_changes));
         stockManager.UpdateStockItemInMediaStore(stockItem,"",stockItem.getQuantity());
         stockFragment.getStockItemAdapter().modifyStockItem(newStockItem,stockItem,false);
+        dismissProgress();
     }
 
 
@@ -212,8 +266,10 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
             showToast(getString(R.string.effecting_changes));
             StockItem newStockItem=stockItem;
             stockItem.setQuantity(stockItem.getQuantity()-1);
+            showProgress(getString(R.string.saving_changes));
             stockManager.UpdateStockItemInMediaStore(stockItem,"",stockItem.getQuantity());
             stockFragment.getStockItemAdapter().modifyStockItem(newStockItem,stockItem,false);
+            dismissProgress();
         }
     }
 
@@ -237,9 +293,10 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
             }
             stockItem.setQuantity(newValue);
             //update media store
-            showToast(getString(R.string.effecting_changes));
+            showProgress(getString(R.string.saving_changes));
             stockManager.UpdateStockItemInMediaStore(stockItem,"",newStockItem.getQuantity());
             stockFragment.getStockItemAdapter().modifyStockItem(newStockItem,stockItem,false);
+            dismissProgress();
             dialog.dismiss();
         });
         alert.setNegativeButton(getString(R.string.cancel),((dialog, which) -> dialog.dismiss()));
@@ -259,8 +316,9 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
 
     @Override
     public void addStockItem(StockItem stockItem)  {
-
+        showProgress(getString(R.string.adding_item));
         stockFragment.getStockItemAdapter().addStockItem(stockItem);
+        dismissProgress();
     }
 
     @Override
@@ -277,6 +335,7 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
     @Override
     public void saveReplacedImage(Uri imageUri) throws IOException {
         // remove old copy of stockItem
+        showProgress(getString(R.string.saving_changes));
         stockManager.deleteStockItemFromMediaStore(stockItem_display);
         stockItemOldCopyForStoreItemIdEdits=stockItem_display;
         // get new copy of stock item
@@ -316,6 +375,7 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
             fragment=CategoryFragment.newInstance();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
             setTitle(getString(R.string.app_name));
+            menuItem.setVisible(false);
             storeIsActive=false;
         }else if (fragmentNull) {
             showToast(getString(R.string.back));
@@ -350,6 +410,41 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
                 }
     }}
 });
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void changeProgressBarColor(ProgressBar progressBar){
+        Drawable progressDrawable= progressBar.getIndeterminateDrawable().mutate();
+        progressDrawable.setColorFilter(getColor(R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+        progressBar.setIndeterminateDrawable(progressDrawable);
+    }
+
+  public static void showProgress(String message){
+      progress_layout.setVisibility(View.VISIBLE);
+        progress_text.setText(message);
+
+  }
+
+  public static void dismissProgress(){
+        progress_layout.setVisibility(View.GONE);
+  }
+
+  public void toggleLayoutVisibility(int key,View view){
+        view.setVisibility(key);
+  }
+
+  public  ArrayList<StockItem> searchStockItem(ArrayList<StockItem> stockItemArrayList,String search){
+
+        String keyword=search.toLowerCase();
+        ArrayList<StockItem> stockItems=new ArrayList<>();
+        for(StockItem stockItem:stockItemArrayList){
+            String stockName=stockItem.getNarration().toLowerCase();
+            if(stockName.contains(keyword)){
+                stockItems.add(stockItem);
+            }
+        }
+
+        return stockItems;
+  }
 
 }
 

@@ -39,7 +39,6 @@ public class StockManager {
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     public StockItem saveStockItemToMediaStore(Uri uri, StockItem stockItem) throws IOException {
-        showToast(context.getString(R.string.saving_please));
 
         ContentResolver resolver = context.getContentResolver();
 
@@ -145,7 +144,6 @@ public class StockManager {
         }
 
         contentResolver.update(stockItem.getUri(),contentValues,selection,selectionArgs);
-        Toast.makeText(context, context.getString(R.string.image_updated), Toast.LENGTH_SHORT).show();
 
     }
     public Bitmap decodeBitmap(Uri uri) throws IOException {

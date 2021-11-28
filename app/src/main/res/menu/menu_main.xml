@@ -3,11 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mitienda.MainActivity">
 
-<item android:id="@+id/store_menu"
-    android:icon="@drawable/store_vector"
-    android:title="@string/store"
-    android:visible="true"
-    app:showAsAction="ifRoom"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" />
+    <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/search_vector"
+        android:title="@string/add_stock_now"
+        android:visible="false"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/store_menu"
+        android:icon="@drawable/store_vector"
+        android:title="@string/store"
+        android:visible="true"
+        app:showAsAction="always" />
     </menu>

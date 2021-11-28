@@ -43,6 +43,7 @@
     <string name="update">Update Transaction</string>
     <string name="amount">Amount</string>
     <string name="edit">Edit</string>
+    <string name="please">Please Wait</string>
     <string name="delete_category">Category Deleted!!</string>
     <string name="undo">UNDO</string>
     <string name="fill">Please Fill All Fields </string>
@@ -52,9 +53,16 @@
     <string name="dialog_description">Enter transaction description...</string>
     <string name="add_transaction">Add Transaction</string>
     <!-- Strings used for fragments for navigation -->
+    <string name="error">No items found</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
+    <string name="search">Enter a product name here...</string>
+    <string name="saving_changes">Saving Changes...</string>
+    <string name="removing_item">Deleting...</string>
+
+    <string name="loading_items">Fetching stock. </string>
+    <string name="adding_item">Adding Product</string>
     <string name="previous">Previous</string>
     <string name="fab_content">Add Item</string>
     <string name="hello_first_fragment">Hello first fragment</string>
