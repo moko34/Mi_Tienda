@@ -1,8 +1,10 @@
 package com.example.mitiendapro;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,12 +22,14 @@ import com.example.mitiendapro.transaction.TransactionFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class TransactionsActivity extends AppCompatActivity  implements CustomDialog.DialogInterfaceEvent,TransactionFragment.TransactionIsEditing, View.OnClickListener {
     private TextView total,type;
     private FloatingActionButton fab;
     private CustomDialog customDialog;
     private ItemManager itemManager;
+    private final TransactionComparator comparator=new TransactionComparator();
     private float totalValue;
     private Transaction transactionToEdit;
     private TransactionAdapter transactionAdapter;
@@ -37,6 +41,7 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
     private ArrayList<Transaction> transactions=new ArrayList<>();
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,7 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
         itemManager=new ItemManager(this);
         // if(type.getText().toString().equals(getString(R.string.purchases))){
         transactions=itemManager.retrieveTransactions(category,true);
+        transactions.sort(comparator);
 
         transactionFragment=TransactionFragment.newInstance(transactions,this,true);
         getSupportFragmentManager().beginTransaction().add(R.id.transactionContainer,transactionFragment).commit();
@@ -144,12 +150,14 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_sales:
                 //launch the sales transaction
                 transactions=itemManager.retrieveTransactions(category,false);
+                transactions.sort(comparator);
                 transactionFragment=TransactionFragment.newInstance(transactions,this,false);
                 getSupportFragmentManager().beginTransaction().replace(R.id.transactionContainer,transactionFragment).commit();
                 type.setText(getString(R.string.sales));
@@ -157,6 +165,7 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
             case R.id.menu_purchases:
                 //launch the expense transactions
                 transactions=itemManager.retrieveTransactions(category,true);
+                transactions.sort(comparator);
                 transactionFragment=TransactionFragment.newInstance(transactions,this,true);
                 getSupportFragmentManager().beginTransaction().replace(R.id.transactionContainer,transactionFragment).commit();
                 type.setText(getString(R.string.purchases));
@@ -167,4 +176,11 @@ public class TransactionsActivity extends AppCompatActivity  implements CustomDi
         return super.onOptionsItemSelected(item);
     }
 
+
+    class TransactionComparator implements Comparator<Transaction> {
+        @Override
+        public int compare(Transaction trans1, Transaction trans2) {
+            return trans1.getDate()-trans2.getDate();
+        }
+    }
 }

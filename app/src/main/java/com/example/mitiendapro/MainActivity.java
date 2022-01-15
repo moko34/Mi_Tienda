@@ -101,6 +101,7 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer,fragment).commit();
         binding.fab.setOnClickListener(this);
 
+
     }
 
     @Override
@@ -142,11 +143,11 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
         if(item.getItemId()==R.id.store_menu){
             if(!storeIsActive){
             fragment=null;
-            showProgress(getString(R.string.please));
+
             stockFragment = StockFragment.newInstance(this,arrayList);
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,stockFragment).addToBackStack(STOCK_KEY).commit();
-                showProgress(getString(R.string.loading_items));
+
             setTitle("Store");
             dismissProgress();
             menuItem.setVisible(true);
@@ -251,7 +252,7 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
         StockItem newStockItem=stockItem;
 
         stockItem.setQuantity(stockItem.getQuantity()+1);
-        showProgress(getString(R.string.saving_changes));
+
         stockManager.UpdateStockItemInMediaStore(stockItem,"",stockItem.getQuantity());
         stockFragment.getStockItemAdapter().modifyStockItem(newStockItem,stockItem,false);
         dismissProgress();
@@ -266,7 +267,6 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
             showToast(getString(R.string.effecting_changes));
             StockItem newStockItem=stockItem;
             stockItem.setQuantity(stockItem.getQuantity()-1);
-            showProgress(getString(R.string.saving_changes));
             stockManager.UpdateStockItemInMediaStore(stockItem,"",stockItem.getQuantity());
             stockFragment.getStockItemAdapter().modifyStockItem(newStockItem,stockItem,false);
             dismissProgress();
@@ -335,7 +335,7 @@ public class MainActivity  extends AppCompatActivity implements CategoryFragment
     @Override
     public void saveReplacedImage(Uri imageUri) throws IOException {
         // remove old copy of stockItem
-        showProgress(getString(R.string.saving_changes));
+
         stockManager.deleteStockItemFromMediaStore(stockItem_display);
         stockItemOldCopyForStoreItemIdEdits=stockItem_display;
         // get new copy of stock item
